@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>阿波次得 · abcd</title>
+<meta name="description" content="阿波次得（abcd）的个人主页。学生，新手，正在学习。Personal site of abcd — a student and a beginner, still learning the ropes.">
+<meta name="theme-color" content="#05070d">
+<meta name="author" content="阿波次得">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0f18'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='%2322d3ee' font-family='Helvetica,Arial,sans-serif'%3EA%3C/text%3E%3C/svg%3E">
+
+<!-- 分享到社交平台时的预览信息 -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="阿波次得 · abcd">
+<meta property="og:description" content="学生 · 新手 · 正在学习 / Student · Beginner · Learning">
+<meta property="og:url" content="https://xu42556.github.io/">
+<meta name="twitter:card" content="summary">
+
+<style>
+  :root{
+    --bg:#05070d;
+    --panel:rgba(255,255,255,.028);
+    --line:rgba(255,255,255,.08);
+    --text:#e7eefb;
+    --muted:#8d9bb1;
+    --cyan:#22d3ee;
+    --indigo:#818cf8;
+    --violet:#a78bfa;
+    --radius:24px;
+  }
+
+  *{box-sizing:border-box}
+
+  html,body{height:100%}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    font-size:16px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:32px 20px 24px;
+    overflow-x:hidden;
+  }
+
+  /* ---------- 背景层：光晕 + 网格 ---------- */
+  .bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+
+  .glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.45}
+  .g1{width:min(56vw,560px);aspect-ratio:1;left:-14%;top:-18%;
+      background:radial-gradient(circle,#0ea5e9 0%,rgba(14,165,233,0) 70%);
+      animation:float1 19s ease-in-out infinite}
+  .g2{width:min(60vw,600px);aspect-ratio:1;right:-16%;bottom:-22%;
+      background:radial-gradient(circle,#7c3aed 0%,rgba(124,58,237,0) 70%);
+      animation:float2 23s ease-in-out infinite}
+  .g3{width:min(34vw,340px);aspect-ratio:1;left:52%;top:44%;
+      background:radial-gradient(circle,#22d3ee 0%,rgba(34,211,238,0) 72%);
+      opacity:.22;animation:float1 27s ease-in-out infinite reverse}
+
+  .grid{
+    position:absolute;inset:-1px;
+    background-image:
+      linear-gradient(to right,rgba(126,231,255,.06) 1px,transparent 1px),
+      linear-gradient(to bottom,rgba(126,231,255,.06) 1px,transparent 1px);
+    background-size:48px 48px;
+    -webkit-mask-image:radial-gradient(circle at 50% 22%,#000 0%,transparent 72%);
+    mask-image:radial-gradient(circle at 50% 22%,#000 0%,transparent 72%);
+    animation:drift 36s linear infinite;
+  }
+
+  @keyframes drift{
+    from{background-position:0 0,0 0}
+    to{background-position:48px 48px,48px 48px}
+  }
+  @keyframes float1{
+    0%,100%{transform:translate3d(0,0,0) scale(1)}
+    50%{transform:translate3d(26px,34px,0) scale(1.07)}
+  }
+  @keyframes float2{
+    0%,100%{transform:translate3d(0,0,0) scale(1)}
+    50%{transform:translate3d(-30px,-26px,0) scale(1.05)}
+  }
+
+  /* ---------- 卡片 ---------- */
+  .card{
+    position:relative;
+    width:100%;
+    max-width:640px;
+    padding:56px 44px 48px;
+    text-align:center;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 30px 80px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.05);
+    animation:rise .8s cubic-bezier(.2,.7,.3,1) both;
+  }
+
+  /* 卡片顶部一道渐变高光 */
+  .card::before{
+    content:"";
+    position:absolute;left:18%;right:18%;top:-1px;height:1px;
+    background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);
+    opacity:.75;
+  }
+
+  @keyframes rise{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:none}
+  }
+
+  .fade{animation:rise .7s cubic-bezier(.2,.7,.3,1) both}
+
+  /* ---------- 头像 ---------- */
+  .avatar{
+    width:116px;height:116px;margin:0 auto 26px;
+    padding:3px;border-radius:50%;
+    background:linear-gradient(140deg,var(--cyan),var(--indigo) 55%,var(--violet));
+    box-shadow:0 0 0 1px rgba(255,255,255,.06),0 18px 44px -18px rgba(34,211,238,.65);
+    animation-delay:.05s;
+  }
+  .avatar .inner{
+    width:100%;height:100%;border-radius:50%;
+    background:#080c14;
+    display:grid;place-items:center;
+    overflow:hidden;position:relative;
+  }
+  .avatar img{
+    position:absolute;inset:0;
+    width:100%;height:100%;object-fit:cover;
+    border-radius:50%;
+  }
+  .avatar .mono{
+    font-size:2.5rem;font-weight:700;letter-spacing:.02em;
+    background:linear-gradient(140deg,var(--cyan),var(--violet));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    user-select:none;
+  }
+
+  /* ---------- 文字 ---------- */
+  h1{
+    margin:0 0 14px;
+    font-size:clamp(2.1rem,7vw,2.9rem);
+    line-height:1.2;
+    letter-spacing:.01em;
+    font-weight:700;
+    background:linear-gradient(120deg,#ffffff 0%,#d7e6ff 40%,var(--cyan) 75%,var(--indigo) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation-delay:.12s;
+  }
+
+  .handle{
+    margin:0 0 30px;
+    display:inline-flex;align-items:center;gap:9px;
+    padding:6px 15px 6px 12px;
+    font-size:.9rem;
+    color:var(--muted);
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:rgba(255,255,255,.02);
+    animation-delay:.2s;
+  }
+  .dot{
+    width:7px;height:7px;border-radius:50%;background:#34d399;
+    box-shadow:0 0 0 0 rgba(52,211,153,.7);
+    animation:pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(52,211,153,.6)}
+    70%{box-shadow:0 0 0 9px rgba(52,211,153,0)}
+    100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}
+  }
+
+  .bio-cn{
+    margin:0 0 6px;
+    font-size:1.16rem;
+    color:#dbe6f7;
+    animation-delay:.28s;
+  }
+  .bio-en{
+    margin:0 0 36px;
+    font-size:.95rem;
+    color:var(--muted);
+    animation-delay:.34s;
+  }
+
+  /* ---------- 链接按钮 ---------- */
+  .links{
+    display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+    animation-delay:.42s;
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:11px 20px;
+    font-size:.94rem;font-weight:500;
+    color:var(--text);text-decoration:none;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:rgba(255,255,255,.03);
+    transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;
+  }
+  .btn:hover,.btn:focus-visible{
+    transform:translateY(-2px);
+    border-color:rgba(34,211,238,.55);
+    background:rgba(34,211,238,.08);
+    box-shadow:0 12px 30px -14px rgba(34,211,238,.8);
+    outline:none;
+  }
+  .btn svg{width:17px;height:17px;fill:currentColor;flex:0 0 auto}
+
+  /* ---------- 页脚 ---------- */
+  footer{
+    margin-top:26px;
+    font-size:.8rem;
+    color:#5f6b7d;
+    text-align:center;
+    animation:rise .7s cubic-bezier(.2,.7,.3,1) .5s both;
+  }
+  footer a{color:#7c8ba1;text-decoration:none;border-bottom:1px dotted rgba(124,139,161,.5)}
+  footer a:hover{color:var(--cyan);border-bottom-color:var(--cyan)}
+
+  /* ---------- 小屏 ---------- */
+  @media (max-width:520px){
+    .card{padding:40px 22px 34px;border-radius:20px}
+    .avatar{width:96px;height:96px;margin-bottom:22px}
+    .avatar .mono{font-size:2.1rem}
+    .bio-cn{font-size:1.06rem}
+    body{padding:22px 14px 18px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true">
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+  <div class="glow g3"></div>
+  <div class="grid"></div>
+</div>
+
+<main class="card">
+
+  <!-- 头像：有 avatar.jpg 就显示图片；没有就显示下面的「阿」字，不会出现破图 -->
+  <div class="avatar fade">
+    <div class="inner">
+      <img src="avatar.jpg" alt="阿波次得的头像" onerror="this.remove()">
+      <span class="mono">阿</span>
+    </div>
+  </div>
+
+  <h1 class="fade">阿波次得</h1>
+
+  <p class="handle fade">
+    <span class="dot" aria-hidden="true"></span>
+    abcd · Student / 学生
+  </p>
+
+  <p class="bio-cn fade">新手啥也不会</p>
+  <p class="bio-en fade">A newbie who's still learning the ropes.</p>
+
+  <!-- ===== 链接区 =====
+       想加新链接，就复制一整个 <a class="btn"> ... </a> 粘贴在下面
+       （图标可以从 simpleicons.org 复制 svg 的 path 内容） -->
+  <nav class="links fade" aria-label="社交链接">
+    <a class="btn" href="https://github.com/XU42556" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.23 2.76.12 3.05.74.81 1.19 1.84 1.19 3.1 0 4.41-2.69 5.38-5.25 5.67.42.36.79 1.08.79 2.18v3.23c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+      GitHub
+    </a>
+  </nav>
+
+  <!-- ===== 项目展示区（暂时留空，想用的时候把下面的注释去掉并填内容）=====
+
+  <section class="projects fade">
+    <h2>项目 / Projects</h2>
+    <a class="proj" href="项目链接" target="_blank" rel="noopener noreferrer">
+      <strong>项目名称</strong>
+      <span>一句话说明这个项目是做什么的。</span>
+    </a>
+  </section>
+
+  ===== -->
+
+</main>
+
+<footer>
+  © <span id="y">2026</span> 阿波次得 · Hosted on
+  <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">GitHub Pages</a>
+</footer>
+
+<script>
+  // 页脚年份自动更新
+  document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
